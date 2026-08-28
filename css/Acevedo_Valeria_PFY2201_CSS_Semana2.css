@@ -53,17 +53,6 @@ nav {
     padding: 15px 20px;
 }
 
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline-block;
-    margin-right: 20px;
-}
-
 nav ul li a {
     color: white;
     text-decoration: none;
@@ -76,14 +65,15 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
-/* Tarjetas de productos */
+/*Tarjetas de productos */
 .producto {
     list-style: none;
-    margin: 20px 0;
+    margin: 0;
     padding: 20px;
     border: 1px solid #cccccc;
     border-radius: 8px;
     background-color: #f9f9f9;
+    text-align: center;
 }
 
 .producto h3 {
@@ -92,11 +82,83 @@ nav ul li a:hover {
 }
 
 .producto img {
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 10px;
     border-radius: 5px;
-    margin-bottom: 10px;
 }
 
 .producto:nth-child(2) {
     border: 2px solid #6c3fc5;
     background-color: #f3efff;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Navegación con Flexbox */
+nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Productos con CSS Grid */
+#productos ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Diseño para tablets */
+@media (max-width: 900px) {
+    #productos ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Diseño para celulares */
+@media (max-width: 600px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #productos {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    #productos ul {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        text-align: center;
+    }
+
+    .producto {
+        padding: 15px;
+    }
+
+    .producto img {
+        max-width: 250px;
+        height: 250px;
+    }
 }
