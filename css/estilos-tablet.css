@@ -1,0 +1,6 @@
+/* Diseño para tablets */
+@media (max-width: 900px) {
+    #productos ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
