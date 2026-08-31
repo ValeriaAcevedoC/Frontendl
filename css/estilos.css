@@ -121,44 +121,4 @@ nav ul {
     padding: 0;
 }
 
-/* Diseño para tablets */
-@media (max-width: 900px) {
-    #productos ul {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 
-/* Diseño para celulares */
-@media (max-width: 600px) {
-
-    body {
-        overflow-x: hidden;
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #productos {
-        margin: 10px;
-        padding: 15px;
-    }
-
-    #productos ul {
-        grid-template-columns: 1fr;
-    }
-
-    header {
-        text-align: center;
-    }
-
-    .producto {
-        padding: 15px;
-    }
-
-    .producto img {
-        max-width: 250px;
-        height: 250px;
-    }
-}
