@@ -1,4 +1,13 @@
-/* Configuración general del sitio */
+/* Variables generales del sitio */
+:root {
+    --color-principal: #1f1f2e;
+    --color-secundario: #2d2d44;
+    --color-acento: #6c3fc5;
+    --color-fondo: #f4f4f4;
+    --color-texto: #222222;
+}
+
+/* Configuración general */
 * {
     box-sizing: border-box;
 }
@@ -6,8 +15,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #222222;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -16,7 +25,7 @@ header {
     padding: 20px;
     margin-bottom: 20px;
     border-bottom: 3px solid black;
-    background-color: #1f1f2e;
+    background-color: var(--color-principal);
     color: white;
 }
 
@@ -24,6 +33,36 @@ header h1 {
     font-size: 32px;
 }
 
+/* Barra de navegación */
+.navbar {
+    background-color: var(--color-secundario) !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus-visible {
+    background-color: var(--color-acento);
+    color: white;
+    border-radius: 5px;
+}
+
+/* Estado de foco para navegación mediante teclado */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--color-acento);
+    outline-offset: 3px;
+}
+
+/* Carrusel de Bootstrap */
+#carruselGamerZone {
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+#carruselGamerZone .carousel-item img {
+    width: 100%;
+    height: 450px;
+    object-fit: contain;
+}
 
 /* Sección de productos */
 #productos {
@@ -34,8 +73,16 @@ header h1 {
 }
 
 #productos h2 {
-    color: #6c3fc5;
+    color: var(--color-acento);
     font-size: 26px;
+}
+
+/* Tarjetas de productos */
+.card-img-top {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    padding: 15px;
 }
 
 /* Pie de página */
@@ -43,82 +90,31 @@ header h1 {
     margin-top: 20px;
     padding: 20px;
     border-top: 2px solid black;
-    background-color: #1f1f2e;
+    background-color: var(--color-principal);
     color: white;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 20px;
 }
 
-/* Menú de navegación */
-nav {
-    background-color: #2d2d44;
-    padding: 15px 20px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 12px;
-}
-
-nav ul li a:hover {
-    background-color: #6c3fc5;
-    border-radius: 5px;
-}
-
-/*Tarjetas de productos */
-.producto {
-    list-style: none;
-    margin: 0;
-    padding: 20px;
-    border: 1px solid #cccccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    text-align: center;
-}
-
-.producto h3 {
-    margin-top: 0;
-    color: #333333;
-}
-
-.producto img {
+#contacto h2 {
     width: 100%;
-    max-width: 300px;
-    height: 300px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 10px;
-    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
-.producto:nth-child(2) {
-    border: 2px solid #6c3fc5;
-    background-color: #f3efff;
+#contacto p {
+    margin: 0;
 }
 
+#contacto a {
+    color: white;
+}
+
+/* Imágenes responsivas */
 img {
     max-width: 100%;
     height: auto;
 }
-
-/* Navegación con Flexbox */
-nav ul {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-/* Productos con CSS Grid */
-#productos ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-

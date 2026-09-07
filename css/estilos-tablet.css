@@ -1,6 +1,10 @@
 /* Diseño para tablets */
-@media (max-width: 900px) {
-    #productos ul {
-        grid-template-columns: repeat(2, 1fr);
+@media (min-width: 601px) and (max-width: 991px) {
+
+    /* Ajuste del carrusel para tablets */
+    #carruselGamerZone .carousel-item img {
+        height: 350px;
+        object-fit: contain;
     }
+
 }
