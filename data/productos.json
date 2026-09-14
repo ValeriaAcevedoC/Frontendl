@@ -1,0 +1,17 @@
+[
+    {
+        "nombre": "The Legend of Zelda",
+        "categoria": "Aventura",
+        "precio": 49990
+    },
+    {
+        "nombre": "Fortnite",
+        "categoria": "Acción",
+        "precio": 0
+    },
+    {
+        "nombre": "Super Mario Bros. Wonder",
+        "categoria": "Plataformas",
+        "precio": 44990
+    }
+]
