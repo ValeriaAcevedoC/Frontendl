@@ -1,27 +1,29 @@
-// Lista de productos obtenidos desde el archivo JSON
-let productos = [];
+// ===============================
+// VARIABLES GLOBALES
+// ===============================
 
-// Productos agregados al carrito
+let productos = [];
 let carrito = [];
 
 
-/*
- * Inicia las funcionalidades principales de GamerZone
- * cuando el contenido de la página está disponible.
- */
+// ===============================
+// INICIO DE LA PÁGINA
+// ===============================
+
 document.addEventListener("DOMContentLoaded", iniciarPagina);
 
 function iniciarPagina() {
     cargarProductos();
     configurarBusqueda();
     configurarCategorias();
+    configurarMostrarTodos();
 }
 
 
-/*
- * Obtiene los productos desde el archivo JSON.
- * Se realizan hasta 2 intentos si ocurre un error temporal.
- */
+// ===============================
+// CARGAR PRODUCTOS CON FETCH
+// ===============================
+
 async function cargarProductos() {
 
     mostrarCargando();
@@ -31,6 +33,7 @@ async function cargarProductos() {
         productos = await obtenerProductosConReintento(2);
 
         mostrarProductos(productos);
+
         mostrarExito("Productos cargados correctamente.");
 
     } catch (error) {
@@ -44,11 +47,10 @@ async function cargarProductos() {
 }
 
 
-/*
- * Realiza la solicitud Fetch.
- * AbortController permite cancelar la solicitud
- * si demora más de 5 segundos.
- */
+// ===============================
+// FETCH CON TIMEOUT
+// ===============================
+
 async function obtenerProductos() {
 
     const controlador = new AbortController();
@@ -81,14 +83,19 @@ async function obtenerProductos() {
 }
 
 
-/*
- * Reintenta la carga cuando ocurre un error.
- */
+// ===============================
+// REINTENTOS DE FETCH
+// ===============================
+
 async function obtenerProductosConReintento(intentos) {
 
     let ultimoError;
 
-    for (let intento = 1; intento <= intentos; intento++) {
+    for (
+        let intento = 1;
+        intento <= intentos;
+        intento++
+    ) {
 
         try {
 
@@ -99,7 +106,8 @@ async function obtenerProductosConReintento(intentos) {
             ultimoError = error;
 
             console.warn(
-                `Intento ${intento} de ${intentos} fallido.`
+                `Intento ${intento} fallido.`,
+                error
             );
         }
     }
@@ -108,15 +116,16 @@ async function obtenerProductosConReintento(intentos) {
 }
 
 
-/*
- * Muestra los productos recibidos.
- * DocumentFragment permite preparar las tarjetas antes
- * de insertarlas todas juntas en el DOM.
- */
+// ===============================
+// MOSTRAR PRODUCTOS
+// ===============================
+
 function mostrarProductos(listaProductos) {
 
     const contenedor =
-        document.getElementById("contenedor-productos");
+        document.getElementById(
+            "contenedor-productos"
+        );
 
     contenedor.innerHTML = "";
 
@@ -125,22 +134,24 @@ function mostrarProductos(listaProductos) {
 
     listaProductos.forEach(producto => {
 
-        const columna =
+        const tarjeta =
             crearTarjetaProducto(producto);
 
-        fragmento.appendChild(columna);
+        fragmento.appendChild(tarjeta);
     });
 
     contenedor.appendChild(fragmento);
 }
 
 
-/*
- * Crea una tarjeta reutilizable para cada producto.
- */
+// ===============================
+// CREAR TARJETA DE PRODUCTO
+// ===============================
+
 function crearTarjetaProducto(producto) {
 
-    const columna = document.createElement("div");
+    const columna =
+        document.createElement("div");
 
     columna.className =
         "col-12 col-md-6 col-lg-4";
@@ -151,7 +162,8 @@ function crearTarjetaProducto(producto) {
             <img
                 src="${producto.imagen}"
                 class="card-img-top"
-                alt="${producto.nombre}">
+                alt="${producto.nombre}"
+            >
 
             <div class="card-body d-flex flex-column">
 
@@ -164,7 +176,7 @@ function crearTarjetaProducto(producto) {
                 </p>
 
                 <p>
-                    <span class="badge text-bg-secondary">
+                    <span class="badge bg-secondary">
                         ${producto.categoria}
                     </span>
                 </p>
@@ -175,7 +187,8 @@ function crearTarjetaProducto(producto) {
 
                 <button
                     class="btn btn-primary mt-auto boton-agregar"
-                    type="button">
+                    type="button"
+                >
                     Agregar al carrito
                 </button>
 
@@ -185,19 +198,23 @@ function crearTarjetaProducto(producto) {
     `;
 
     const boton =
-        columna.querySelector(".boton-agregar");
+        columna.querySelector(
+            ".boton-agregar"
+        );
 
-    boton.addEventListener("click", () => {
-        agregarAlCarrito(producto);
-    });
+    boton.addEventListener(
+        "click",
+        () => agregarAlCarrito(producto)
+    );
 
     return columna;
 }
 
 
-/*
- * Agrega un producto al carrito.
- */
+// ===============================
+// AGREGAR PRODUCTO AL CARRITO
+// ===============================
+
 function agregarAlCarrito(producto) {
 
     carrito.push(producto);
@@ -205,31 +222,38 @@ function agregarAlCarrito(producto) {
     actualizarCarrito();
 }
 
-/*
- * Actualiza el resumen del carrito.
- * Los productos repetidos se agrupan indicando su cantidad.
- */
+
+// ===============================
+// ACTUALIZAR CARRITO
+// ===============================
+
 function actualizarCarrito() {
 
     const lista =
-        document.getElementById("lista-carrito");
+        document.getElementById(
+            "lista-carrito"
+        );
 
     const contador =
-        document.getElementById("contador-carrito");
+        document.getElementById(
+            "contador-carrito"
+        );
 
     const totalElemento =
-        document.getElementById("total-carrito");
+        document.getElementById(
+            "total-carrito"
+        );
+
+    contador.textContent =
+        carrito.length;
 
     lista.innerHTML = "";
-
-    // El contador muestra la cantidad total de productos agregados
-    contador.textContent = carrito.length;
 
     if (carrito.length === 0) {
 
         lista.innerHTML = `
             <p class="text-muted">
-                Todavía no has agregado productos.
+                No hay productos en el carrito.
             </p>
         `;
 
@@ -238,20 +262,22 @@ function actualizarCarrito() {
         return;
     }
 
-    /*
-     * Agrupa los productos repetidos utilizando su ID.
-     */
+    // Agrupar productos repetidos
     const productosAgrupados = {};
 
     carrito.forEach(producto => {
 
         if (productosAgrupados[producto.id]) {
 
-            productosAgrupados[producto.id].cantidad++;
+            productosAgrupados[
+                producto.id
+            ].cantidad++;
 
         } else {
 
-            productosAgrupados[producto.id] = {
+            productosAgrupados[
+                producto.id
+            ] = {
                 ...producto,
                 cantidad: 1
             };
@@ -263,22 +289,26 @@ function actualizarCarrito() {
 
     let total = 0;
 
-    Object.values(productosAgrupados).forEach(producto => {
+    Object.values(
+        productosAgrupados
+    ).forEach(producto => {
 
         const subtotal =
-            producto.precio * producto.cantidad;
+            producto.precio *
+            producto.cantidad;
 
         total += subtotal;
 
-        const elemento =
+        const fila =
             document.createElement("div");
 
-        elemento.className =
-            "d-flex justify-content-between border-bottom py-2";
+        fila.className =
+            "d-flex justify-content-between mb-2";
 
-        elemento.innerHTML = `
+        fila.innerHTML = `
             <span>
-                ${producto.nombre} x${producto.cantidad}
+                ${producto.nombre}
+                x${producto.cantidad}
             </span>
 
             <span>
@@ -286,7 +316,7 @@ function actualizarCarrito() {
             </span>
         `;
 
-        fragmento.appendChild(elemento);
+        fragmento.appendChild(fila);
     });
 
     lista.appendChild(fragmento);
@@ -296,115 +326,179 @@ function actualizarCarrito() {
 }
 
 
-/*
- * Configura el formulario de búsqueda.
- */
+// ===============================
+// BUSCADOR DE PRODUCTOS
+// ===============================
+
 function configurarBusqueda() {
 
     const formulario =
-        document.getElementById("form-busqueda");
+        document.getElementById(
+            "form-busqueda"
+        );
 
-    const input =
-        document.getElementById("input-busqueda");
+    formulario.addEventListener(
+        "submit",
+        function (evento) {
 
-    const mensaje =
-        document.getElementById("mensaje-busqueda");
+            evento.preventDefault();
 
-    formulario.addEventListener("submit", evento => {
-
-        evento.preventDefault();
-
-        const texto =
-            input.value.trim().toLowerCase();
-
-        if (texto === "") {
-
-            mostrarProductos(productos);
-
-            mensaje.textContent =
-                "Ingresa un nombre para realizar la búsqueda.";
-
-            mensaje.className =
-                "text-center mt-3 text-danger";
-
-            return;
-        }
-
-        const resultados =
-            productos.filter(producto =>
-                producto.nombre
+            const texto =
+                document
+                    .getElementById(
+                        "input-busqueda"
+                    )
+                    .value
                     .toLowerCase()
-                    .includes(texto)
-            );
+                    .trim();
 
-        mostrarProductos(resultados);
+            const mensaje =
+                document.getElementById(
+                    "mensaje-busqueda"
+                );
 
-        if (resultados.length === 0) {
+            if (texto === "") {
 
-            mensaje.textContent =
-                "No se encontraron videojuegos.";
+                mostrarProductos(productos);
 
-            mensaje.className =
-                "text-center mt-3 text-danger";
+                mensaje.textContent =
+                    "Ingresa un nombre para buscar.";
 
-        } else {
+                mensaje.className =
+                    "text-center mt-3 text-danger";
 
-            mensaje.textContent =
-                `${resultados.length} producto(s) encontrado(s).`;
-
-            mensaje.className =
-                "text-center mt-3 text-success";
-        }
-    });
-}
-
-
-/*
- * Permite filtrar productos desde las categorías
- * disponibles en la barra de navegación.
- */
-function configurarCategorias() {
-
-    const enlaces =
-        document.querySelectorAll(".categoria-link");
-
-    enlaces.forEach(enlace => {
-
-        enlace.addEventListener("click", () => {
-
-            const categoria =
-                enlace.dataset.categoria;
+                return;
+            }
 
             const resultados =
                 productos.filter(producto =>
-                    producto.categoria === categoria
+                    producto.nombre
+                        .toLowerCase()
+                        .includes(texto)
                 );
 
             mostrarProductos(resultados);
 
-            document.getElementById("mensaje-busqueda")
-                .textContent =
-                `Mostrando categoría: ${categoria}`;
-        });
+            if (resultados.length === 0) {
+
+                mensaje.textContent =
+                    "No se encontraron videojuegos.";
+
+                mensaje.className =
+                    "text-center mt-3 text-danger";
+
+            } else {
+
+                mensaje.textContent =
+                    `${resultados.length} producto(s) encontrado(s).`;
+
+                mensaje.className =
+                    "text-center mt-3 text-success";
+            }
+        }
+    );
+}
+
+
+// ===============================
+// FILTRAR POR CATEGORÍA
+// ===============================
+
+function configurarCategorias() {
+
+    const enlaces =
+        document.querySelectorAll(
+            ".categoria-link"
+        );
+
+    enlaces.forEach(enlace => {
+
+        enlace.addEventListener(
+            "click",
+            function () {
+
+                const categoria =
+                    this.dataset.categoria;
+
+                const productosFiltrados =
+                    productos.filter(
+                        producto =>
+                            producto.categoria ===
+                            categoria
+                    );
+
+                mostrarProductos(
+                    productosFiltrados
+                );
+
+                const mensaje =
+                    document.getElementById(
+                        "mensaje-busqueda"
+                    );
+
+                mensaje.textContent =
+                    `Mostrando categoría: ${categoria}`;
+
+                mensaje.className =
+                    "text-center mt-3 text-success";
+            }
+        );
     });
 }
 
 
-/*
- * Muestra el estado inicial de carga.
- */
+// ===============================
+// MOSTRAR TODOS LOS PRODUCTOS
+// ===============================
+
+function configurarMostrarTodos() {
+
+    const enlace =
+        document.getElementById(
+            "mostrar-todos"
+        );
+
+    enlace.addEventListener(
+        "click",
+        function () {
+
+            mostrarProductos(productos);
+
+            document.getElementById(
+                "input-busqueda"
+            ).value = "";
+
+            const mensaje =
+                document.getElementById(
+                    "mensaje-busqueda"
+                );
+
+            mensaje.textContent =
+                "Mostrando todos los productos.";
+
+            mensaje.className =
+                "text-center mt-3 text-success";
+        }
+    );
+}
+
+
+// ===============================
+// ESTADOS DE CARGA
+// ===============================
+
 function mostrarCargando() {
 
     const estado =
-        document.getElementById("estado-productos");
-
-    estado.className =
-        "text-center my-4";
+        document.getElementById(
+            "estado-productos"
+        );
 
     estado.innerHTML = `
         <div
             class="spinner-border"
-            role="status">
+            role="status"
+        >
             <span class="visually-hidden">
                 Cargando...
             </span>
@@ -417,39 +511,40 @@ function mostrarCargando() {
 }
 
 
-/*
- * Muestra un mensaje cuando Fetch finaliza correctamente.
- */
 function mostrarExito(mensaje) {
 
     const estado =
-        document.getElementById("estado-productos");
+        document.getElementById(
+            "estado-productos"
+        );
 
-    estado.className =
-        "alert alert-success text-center";
-
-    estado.textContent = mensaje;
+    estado.innerHTML = `
+        <div class="alert alert-success">
+            ${mensaje}
+        </div>
+    `;
 }
 
 
-/*
- * Muestra un mensaje amigable cuando ocurre un error.
- */
 function mostrarError(mensaje) {
 
     const estado =
-        document.getElementById("estado-productos");
+        document.getElementById(
+            "estado-productos"
+        );
 
-    estado.className =
-        "alert alert-danger text-center";
-
-    estado.textContent = mensaje;
+    estado.innerHTML = `
+        <div class="alert alert-danger">
+            ${mensaje}
+        </div>
+    `;
 }
 
 
-/*
- * Formatea los precios utilizando pesos chilenos.
- */
+// ===============================
+// FORMATO DE PRECIOS
+// ===============================
+
 function formatearPrecio(precio) {
 
     return precio.toLocaleString(

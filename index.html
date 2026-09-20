@@ -10,7 +10,8 @@
     <!-- Bootstrap 5 -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
     <!-- Estilos propios -->
     <link rel="stylesheet" href="assets/css/estilos.css">
@@ -20,58 +21,76 @@
 
 <body>
 
-    <!-- Barra de navegación -->
+    <!-- ========================= -->
+    <!-- BARRA DE NAVEGACIÓN -->
+    <!-- ========================= -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container">
 
-            <a class="navbar-brand fw-bold" href="#inicio">
+            <a class="navbar-brand fw-bold" href="#">
                 GamerZone
             </a>
 
+            <!-- Botón hamburguesa para dispositivos móviles -->
             <button
                 class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#menuPrincipal"
-                aria-controls="menuPrincipal"
+                data-bs-target="#navbarGamerZone"
+                aria-controls="navbarGamerZone"
                 aria-expanded="false"
-                aria-label="Abrir menú de navegación">
-
+                aria-label="Abrir menú"
+            >
                 <span class="navbar-toggler-icon"></span>
-
             </button>
 
-            <div class="collapse navbar-collapse" id="menuPrincipal">
+            <div
+                class="collapse navbar-collapse"
+                id="navbarGamerZone"
+            >
 
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
 
+                    <!-- Inicio ahora muestra todos los productos -->
                     <li class="nav-item">
-                        <a class="nav-link active" href="#inicio">
+                        <a
+                            class="nav-link active"
+                            href="#productos"
+                            id="mostrar-todos"
+                        >
                             Inicio
                         </a>
                     </li>
 
-                    <!-- Categorías simuladas -->
+                    <!-- Categoría Aventura -->
                     <li class="nav-item">
-                        <a class="nav-link categoria-link"
-                           href="#productos"
-                           data-categoria="Aventura">
+                        <a
+                            class="nav-link categoria-link"
+                            href="#productos"
+                            data-categoria="Aventura"
+                        >
                             Aventura
                         </a>
                     </li>
 
+                    <!-- Categoría RPG -->
                     <li class="nav-item">
-                        <a class="nav-link categoria-link"
-                           href="#productos"
-                           data-categoria="RPG">
+                        <a
+                            class="nav-link categoria-link"
+                            href="#productos"
+                            data-categoria="RPG"
+                        >
                             RPG
                         </a>
                     </li>
 
+                    <!-- Categoría Carreras -->
                     <li class="nav-item">
-                        <a class="nav-link categoria-link"
-                           href="#productos"
-                           data-categoria="Carreras">
+                        <a
+                            class="nav-link categoria-link"
+                            href="#productos"
+                            data-categoria="Carreras"
+                        >
                             Carreras
                         </a>
                     </li>
@@ -81,143 +100,153 @@
                 <!-- Contador del carrito -->
                 <span class="navbar-text text-white">
                     🛒 Carrito:
-                    <span id="contador-carrito">0</span>
+                    <span
+                        id="contador-carrito"
+                        class="badge bg-danger"
+                    >
+                        0
+                    </span>
                 </span>
 
             </div>
-
         </div>
     </nav>
 
 
-    <!-- Encabezado -->
-    <header id="inicio" class="text-center py-4">
-
+    <!-- ========================= -->
+    <!-- ENCABEZADO -->
+    <!-- ========================= -->
+    <header
+        id="inicio"
+        class="text-center py-5 bg-light"
+    >
         <div class="container">
 
-            <h1>GamerZone</h1>
+            <h1 class="fw-bold">
+                GamerZone
+            </h1>
 
-            <p class="lead">
+            <p class="lead mb-0">
                 Tu tienda de videojuegos
             </p>
 
         </div>
-
     </header>
 
 
-    <main>
+    <!-- ========================= -->
+    <!-- BUSCADOR -->
+    <!-- ========================= -->
+    <section class="container my-4">
 
-        <!-- Buscador -->
-        <section class="container my-4">
+        <form
+            id="form-busqueda"
+            class="row justify-content-center g-2"
+        >
 
-            <h2 class="text-center mb-3">
-                Buscar videojuegos
-            </h2>
+            <div class="col-12 col-md-7">
 
-            <form id="form-busqueda" class="row justify-content-center">
+                <label
+                    for="input-busqueda"
+                    class="visually-hidden"
+                >
+                    Buscar videojuego
+                </label>
 
-                <div class="col-12 col-md-8 col-lg-6">
+                <input
+                    type="text"
+                    id="input-busqueda"
+                    class="form-control"
+                    placeholder="Buscar videojuego..."
+                >
 
-                    <div class="input-group">
-
-                        <input
-                            type="search"
-                            id="input-busqueda"
-                            class="form-control"
-                            placeholder="Buscar por nombre..."
-                            aria-label="Buscar videojuegos">
-
-                        <button
-                            class="btn btn-primary"
-                            type="submit">
-                            Buscar
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </form>
-
-            <!-- Mensajes de búsqueda -->
-            <div
-                id="mensaje-busqueda"
-                class="text-center mt-3"
-                aria-live="polite">
             </div>
 
-        </section>
+            <div class="col-12 col-md-auto">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                >
+                    Buscar
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- Mensajes de búsqueda y filtros -->
+        <p
+            id="mensaje-busqueda"
+            class="text-center mt-3"
+        ></p>
+
+    </section>
 
 
-        <!-- Productos -->
-        <section id="productos" class="container my-5">
+    <!-- ========================= -->
+    <!-- PRODUCTOS -->
+    <!-- ========================= -->
+    <main>
+
+        <section
+            id="productos"
+            class="container my-5"
+        >
 
             <h2 class="text-center mb-4">
-                Nuestros productos
+                Nuestros videojuegos
             </h2>
 
-            <!--
-                Estado de carga.
-                JavaScript modificará este mensaje dependiendo
-                del resultado de Fetch API.
-            -->
+            <!-- Estado de carga / éxito / error -->
             <div
                 id="estado-productos"
-                class="text-center my-4"
-                aria-live="polite">
-
+                class="text-center mb-4"
+            >
                 <div
                     class="spinner-border"
-                    role="status">
+                    role="status"
+                >
                     <span class="visually-hidden">
-                        Cargando productos...
+                        Cargando...
                     </span>
                 </div>
 
                 <p class="mt-2">
                     Cargando productos...
                 </p>
-
             </div>
 
-
-            <!--
-                Las tarjetas NO se escriben manualmente.
-                JavaScript las cargará desde productos.json.
-            -->
+            <!-- Aquí JavaScript crea las tarjetas -->
             <div
                 id="contenedor-productos"
-                class="row g-4">
-            </div>
+                class="row g-4"
+            ></div>
 
         </section>
 
 
-        <!-- Carrito -->
-        <section id="carrito" class="container my-5">
+        <!-- ========================= -->
+        <!-- CARRITO -->
+        <!-- ========================= -->
+        <section
+            id="carrito"
+            class="container my-5"
+        >
 
-            <div class="card">
-
-                <div class="card-header bg-dark text-white">
-
-                    <h2 class="h4 mb-0">
-                        🛒 Resumen del carrito
-                    </h2>
-
-                </div>
+            <div class="card shadow-sm">
 
                 <div class="card-body">
+
+                    <h2 class="card-title mb-4">
+                        🛒 Resumen del carrito
+                    </h2>
 
                     <!-- Productos agregados -->
                     <div id="lista-carrito">
 
-                        <p
-                            id="carrito-vacio"
-                            class="text-muted">
-
-                            Todavía no has agregado productos.
-
+                        <p class="text-muted">
+                            No hay productos en el carrito.
                         </p>
 
                     </div>
@@ -225,9 +254,12 @@
                     <hr>
 
                     <div
-                        class="d-flex justify-content-between align-items-center">
+                        class="d-flex justify-content-between align-items-center"
+                    >
 
-                        <strong>Total:</strong>
+                        <strong>
+                            Total:
+                        </strong>
 
                         <strong id="total-carrito">
                             $0
@@ -244,10 +276,13 @@
     </main>
 
 
-    <!-- Pie de página -->
+    <!-- ========================= -->
+    <!-- PIE DE PÁGINA -->
+    <!-- ========================= -->
     <footer
         id="contacto"
-        class="bg-dark text-white text-center py-4 mt-5">
+        class="bg-dark text-white text-center py-4 mt-5"
+    >
 
         <div class="container">
 
@@ -255,8 +290,18 @@
                 GamerZone - Tienda de Videojuegos
             </p>
 
+            <p class="mb-1">
+                Contacto:
+                <a
+                    href="mailto:contacto@gamerzone.cl"
+                    class="text-white"
+                >
+                    contacto@gamerzone.cl
+                </a>
+            </p>
+
             <p class="mb-0">
-                Contacto: contacto@gamerzone.cl
+                Síguenos en nuestras redes sociales
             </p>
 
         </div>
@@ -266,8 +311,8 @@
 
     <!-- Bootstrap JavaScript -->
     <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
-    </script>
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
 
     <!-- JavaScript propio -->
     <script src="assets/js/app.js"></script>
