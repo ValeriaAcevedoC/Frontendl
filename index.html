@@ -1,243 +1,277 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Videojuegos</title>
+
+    <title>GamerZone - Tienda de Videojuegos</title>
 
     <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
-    <!-- Enlaces a los archivos CSS -->
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="css/estilos-movil.css">
-    <link rel="stylesheet" href="css/estilos-tablet.css">
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="assets/css/estilos.css">
+    <link rel="stylesheet" href="assets/css/estilos-tablet.css">
+    <link rel="stylesheet" href="assets/css/estilos-movil.css">
 </head>
 
 <body>
 
-    <!-- Encabezado principal -->
-    <header id="inicio">
-        <h1>GamerZone</h1>
-        <p>Tu tienda de videojuegos favorita.</p>
-    </header>
-
-    <!-- Barra de navegación responsiva con Bootstrap -->
+    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid">
+        <div class="container">
 
-            <a class="navbar-brand" href="#inicio">GamerZone</a>
+            <a class="navbar-brand fw-bold" href="#inicio">
+                GamerZone
+            </a>
 
-            <!-- Botón hamburguesa para dispositivos móviles -->
-            <button class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#menuPrincipal"
-                    aria-controls="menuPrincipal"
-                    aria-expanded="false"
-                    aria-label="Mostrar u ocultar navegación">
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menuPrincipal"
+                aria-controls="menuPrincipal"
+                aria-expanded="false"
+                aria-label="Abrir menú de navegación">
 
                 <span class="navbar-toggler-icon"></span>
+
             </button>
 
-            <!-- Enlaces de navegación -->
             <div class="collapse navbar-collapse" id="menuPrincipal">
-                <ul class="navbar-nav ms-auto">
+
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#inicio">Inicio</a>
+                        <a class="nav-link active" href="#inicio">
+                            Inicio
+                        </a>
+                    </li>
+
+                    <!-- Categorías simuladas -->
+                    <li class="nav-item">
+                        <a class="nav-link categoria-link"
+                           href="#productos"
+                           data-categoria="Aventura">
+                            Aventura
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#productos">Productos</a>
+                        <a class="nav-link categoria-link"
+                           href="#productos"
+                           data-categoria="RPG">
+                            RPG
+                        </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#contacto">Contacto</a>
+                        <a class="nav-link categoria-link"
+                           href="#productos"
+                           data-categoria="Carreras">
+                            Carreras
+                        </a>
                     </li>
 
                 </ul>
+
+                <!-- Contador del carrito -->
+                <span class="navbar-text text-white">
+                    🛒 Carrito:
+                    <span id="contador-carrito">0</span>
+                </span>
+
             </div>
 
         </div>
     </nav>
 
-    <main>
 
-        <!-- Carrusel de imágenes -->
-        <div id="carruselGamerZone"
-             class="carousel slide"
-             data-bs-ride="carousel"
-             data-bs-interval="3000">
+    <!-- Encabezado -->
+    <header id="inicio" class="text-center py-4">
 
-            <!-- Indicadores del carrusel -->
-            <div class="carousel-indicators">
+        <div class="container">
 
-                <button type="button"
-                        data-bs-target="#carruselGamerZone"
-                        data-bs-slide-to="0"
-                        class="active"
-                        aria-current="true"
-                        aria-label="Minecraft">
-                </button>
+            <h1>GamerZone</h1>
 
-                <button type="button"
-                        data-bs-target="#carruselGamerZone"
-                        data-bs-slide-to="1"
-                        aria-label="World of Warcraft">
-                </button>
-
-                <button type="button"
-                        data-bs-target="#carruselGamerZone"
-                        data-bs-slide-to="2"
-                        aria-label="Mario Kart">
-                </button>
-
-            </div>
-
-            <!-- Imágenes del carrusel -->
-            <div class="carousel-inner">
-
-                <div class="carousel-item active">
-                    <img src="images/minecraft.jpg"
-                         class="d-block w-100"
-                         alt="Videojuego Minecraft">
-                </div>
-
-                <div class="carousel-item">
-                    <img src="images/World_of_Warcraft.png"
-                         class="d-block w-100"
-                         alt="Portada del videojuego World of Warcraft">
-                </div>
-
-                <div class="carousel-item">
-                    <img src="images/mariokart.webp"
-                         class="d-block w-100"
-                         alt="Videojuego Mario Kart">
-                </div>
-
-            </div>
-
-            <!-- Botón anterior -->
-            <button class="carousel-control-prev"
-                    type="button"
-                    data-bs-target="#carruselGamerZone"
-                    data-bs-slide="prev">
-
-                <span class="carousel-control-prev-icon"
-                      aria-hidden="true"></span>
-
-                <span class="visually-hidden">Anterior</span>
-            </button>
-
-            <!-- Botón siguiente -->
-            <button class="carousel-control-next"
-                    type="button"
-                    data-bs-target="#carruselGamerZone"
-                    data-bs-slide="next">
-
-                <span class="carousel-control-next-icon"
-                      aria-hidden="true"></span>
-
-                <span class="visually-hidden">Siguiente</span>
-            </button>
+            <p class="lead">
+                Tu tienda de videojuegos
+            </p>
 
         </div>
 
-        <!-- Sección de productos -->
-        <section id="productos">
+    </header>
 
-            <h2>Productos destacados</h2>
 
-            <!-- Cuadrícula de productos con Bootstrap -->
-            <div class="container">
-                <div class="row g-4">
+    <main>
 
-                    <!-- Producto Minecraft -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <article class="card h-100">
+        <!-- Buscador -->
+        <section class="container my-4">
 
-                            <img src="images/minecraft.jpg"
-                                 class="card-img-top img-fluid"
-                                 alt="Videojuego Minecraft">
+            <h2 class="text-center mb-3">
+                Buscar videojuegos
+            </h2>
 
-                            <div class="card-body">
-                                <h3 class="card-title">Minecraft</h3>
+            <form id="form-busqueda" class="row justify-content-center">
 
-                                <p class="card-text">
-                                    Explora, construye y vive aventuras en un mundo lleno de posibilidades.
-                                </p>
-                            </div>
+                <div class="col-12 col-md-8 col-lg-6">
 
-                        </article>
-                    </div>
+                    <div class="input-group">
 
-                    <!-- Producto World of Warcraft -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <article class="card h-100">
+                        <input
+                            type="search"
+                            id="input-busqueda"
+                            class="form-control"
+                            placeholder="Buscar por nombre..."
+                            aria-label="Buscar videojuegos">
 
-                            <img src="images/World_of_Warcraft.png"
-                                 class="card-img-top img-fluid"
-                                 alt="Portada del videojuego World of Warcraft">
+                        <button
+                            class="btn btn-primary"
+                            type="submit">
+                            Buscar
+                        </button>
 
-                            <div class="card-body">
-                                <h3 class="card-title">World of Warcraft</h3>
-
-                                <p class="card-text">
-                                    Explora un enorme mundo de fantasía, completa misiones y vive aventuras junto a otros jugadores.
-                                </p>
-                            </div>
-
-                        </article>
-                    </div>
-
-                    <!-- Producto Mario Kart -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <article class="card h-100">
-
-                            <img src="images/mariokart.webp"
-                                 class="card-img-top img-fluid"
-                                 alt="Videojuego Mario Kart">
-
-                            <div class="card-body">
-                                <h3 class="card-title">Mario Kart</h3>
-
-                                <p class="card-text">
-                                    Compite en entretenidas carreras con diferentes personajes y circuitos.
-                                </p>
-                            </div>
-
-                        </article>
                     </div>
 
                 </div>
+
+            </form>
+
+            <!-- Mensajes de búsqueda -->
+            <div
+                id="mensaje-busqueda"
+                class="text-center mt-3"
+                aria-live="polite">
+            </div>
+
+        </section>
+
+
+        <!-- Productos -->
+        <section id="productos" class="container my-5">
+
+            <h2 class="text-center mb-4">
+                Nuestros productos
+            </h2>
+
+            <!--
+                Estado de carga.
+                JavaScript modificará este mensaje dependiendo
+                del resultado de Fetch API.
+            -->
+            <div
+                id="estado-productos"
+                class="text-center my-4"
+                aria-live="polite">
+
+                <div
+                    class="spinner-border"
+                    role="status">
+                    <span class="visually-hidden">
+                        Cargando productos...
+                    </span>
+                </div>
+
+                <p class="mt-2">
+                    Cargando productos...
+                </p>
+
+            </div>
+
+
+            <!--
+                Las tarjetas NO se escriben manualmente.
+                JavaScript las cargará desde productos.json.
+            -->
+            <div
+                id="contenedor-productos"
+                class="row g-4">
+            </div>
+
+        </section>
+
+
+        <!-- Carrito -->
+        <section id="carrito" class="container my-5">
+
+            <div class="card">
+
+                <div class="card-header bg-dark text-white">
+
+                    <h2 class="h4 mb-0">
+                        🛒 Resumen del carrito
+                    </h2>
+
+                </div>
+
+                <div class="card-body">
+
+                    <!-- Productos agregados -->
+                    <div id="lista-carrito">
+
+                        <p
+                            id="carrito-vacio"
+                            class="text-muted">
+
+                            Todavía no has agregado productos.
+
+                        </p>
+
+                    </div>
+
+                    <hr>
+
+                    <div
+                        class="d-flex justify-content-between align-items-center">
+
+                        <strong>Total:</strong>
+
+                        <strong id="total-carrito">
+                            $0
+                        </strong>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </section>
 
     </main>
 
+
     <!-- Pie de página -->
-    <footer id="contacto">
+    <footer
+        id="contacto"
+        class="bg-dark text-white text-center py-4 mt-5">
 
-        <h2>Contacto</h2>
+        <div class="container">
 
-        <p>Correo: contacto@gamerzone.cl</p>
-        <p>Teléfono: +56 9 1234 5678</p>
+            <p class="mb-1">
+                GamerZone - Tienda de Videojuegos
+            </p>
 
-        <p>
-            Síguenos en
-            <a href="https://www.instagram.com/">Instagram</a>
-        </p>
+            <p class="mb-0">
+                Contacto: contacto@gamerzone.cl
+            </p>
 
-        <p>&copy; 2026 GamerZone. Todos los derechos reservados.</p>
+        </div>
 
     </footer>
 
-    <!-- JavaScript de Bootstrap 5 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="js/script.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- JavaScript propio -->
+    <script src="assets/js/app.js"></script>
 
 </body>
+
 </html>
