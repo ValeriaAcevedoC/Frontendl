@@ -6,36 +6,53 @@
         overflow-x: hidden;
     }
 
-    /* Encabezado centrado en dispositivos móviles */
-    header {
+    /* Encabezado */
+    #inicio {
         text-align: center;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
-    /* Ajuste de la sección de productos */
+    #inicio h1 {
+        font-size: 28px;
+    }
+
+    /* Buscador */
+    #form-busqueda {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Sección de productos */
     #productos {
         margin: 10px;
         padding: 15px;
     }
 
-    /* Carrusel adaptado a pantallas pequeñas */
-    #carruselGamerZone {
-        margin: 10px auto;
+    #productos h2 {
+        font-size: 24px;
     }
 
-    #carruselGamerZone .carousel-item img {
-        height: 280px;
-        object-fit: contain;
-    }
-
-    /* Imágenes de las tarjetas en dispositivos móviles */
+    /* Imágenes de las tarjetas */
     .card-img-top {
         height: 250px;
         object-fit: contain;
+        padding: 10px;
     }
 
-    /* Pie de página en dispositivos móviles */
+    /* Carrito */
+    #carrito {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #carrito .card-body {
+        padding: 15px;
+    }
+
+    /* Pie de página */
     #contacto {
-        flex-direction: column;
-        align-items: flex-start;
+        text-align: center;
+        padding: 20px 15px;
     }
 }

@@ -20,19 +20,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Encabezado */
-header {
-    padding: 20px;
-    margin-bottom: 20px;
-    border-bottom: 3px solid black;
-    background-color: var(--color-principal);
-    color: white;
-}
-
-header h1 {
-    font-size: 32px;
-}
-
 /* Barra de navegación */
 .navbar {
     background-color: var(--color-secundario) !important;
@@ -52,21 +39,20 @@ button:focus-visible {
     outline-offset: 3px;
 }
 
-/* Carrusel de Bootstrap */
-#carruselGamerZone {
-    max-width: 1200px;
-    margin: 20px auto;
+/* Encabezado principal */
+#inicio {
+    background-color: var(--color-principal) !important;
+    color: white;
+    border-bottom: 3px solid black;
+    margin-bottom: 20px;
 }
 
-#carruselGamerZone .carousel-item img {
-    width: 100%;
-    height: 450px;
-    object-fit: contain;
+#inicio h1 {
+    font-size: 32px;
 }
 
 /* Sección de productos */
 #productos {
-    margin: 20px;
     padding: 20px;
     border: 2px solid black;
     background-color: white;
@@ -85,28 +71,15 @@ button:focus-visible {
     padding: 15px;
 }
 
+/* Carrito */
+#carrito .card {
+    border-radius: 8px;
+}
+
 /* Pie de página */
 #contacto {
-    margin-top: 20px;
-    padding: 20px;
-    border-top: 2px solid black;
-    background-color: var(--color-principal);
+    background-color: var(--color-principal) !important;
     color: white;
-
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px 20px;
-}
-
-#contacto h2 {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-#contacto p {
-    margin: 0;
 }
 
 #contacto a {

@@ -1,10 +1,26 @@
 /* Diseño para tablets */
 @media (min-width: 601px) and (max-width: 991px) {
 
-    /* Ajuste del carrusel para tablets */
-    #carruselGamerZone .carousel-item img {
-        height: 350px;
+    /* Encabezado */
+    #inicio {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* Sección de productos */
+    #productos {
+        padding: 20px;
+    }
+
+    /* Imágenes de las tarjetas */
+    .card-img-top {
+        height: 260px;
         object-fit: contain;
     }
 
+    /* Carrito */
+    #carrito {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
