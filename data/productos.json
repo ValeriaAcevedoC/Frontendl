@@ -2,25 +2,28 @@
     {
         "id": 1,
         "nombre": "Minecraft",
-        "precio": 24990,
+        "precioNormal": 24990,
+        "precioOferta": 19990,
         "categoria": "Aventura",
-        "imagen": "assets/img/minecraft.jpg",
+        "imagen": "img/minecraft.jpg",
         "descripcion": "Explora, construye y vive aventuras en un mundo lleno de posibilidades."
     },
     {
         "id": 2,
         "nombre": "World of Warcraft",
-        "precio": 39990,
+        "precioNormal": 39990,
+        "precioOferta": 34990,
         "categoria": "RPG",
-        "imagen": "assets/img/World_of_Warcraft.png",
+        "imagen": "img/World_of_Warcraft.png",
         "descripcion": "Explora Azeroth, completa misiones y vive aventuras junto a otros jugadores."
     },
     {
         "id": 3,
         "nombre": "Mario Kart",
-        "precio": 49990,
+        "precioNormal": 49990,
+        "precioOferta": 44990,
         "categoria": "Carreras",
-        "imagen": "assets/img/mariokart.webp",
+        "imagen": "img/mariokart.webp",
         "descripcion": "Compite en entretenidas carreras con tus personajes favoritos."
     }
 ]
