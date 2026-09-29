@@ -1,106 +1,81 @@
-# GamerZone - Tienda de Videojuegos
+# GamerZone - React eCommerce
 
-Proyecto frontend de una tienda de videojuegos llamada **GamerZone**. La aplicacion muestra un catalogo de productos, permite buscar videojuegos, filtrar por categoria y agregar productos a un carrito de compras dinamico.
-
-## Descripcion
-
-GamerZone es una pagina web estatica desarrollada con HTML, CSS, Bootstrap y JavaScript. Los productos se cargan desde un archivo JSON local usando Fetch API y se renderizan dinamicamente en tarjetas.
-
-El proyecto tambien incluye estilos responsivos para escritorio, tablet y movil, ademas de capturas de evidencia del funcionamiento.
-
-## Tecnologias utilizadas
-
-- HTML5
-- CSS3
-- JavaScript
-- Bootstrap 5
-- Fetch API
-- JSON
+GamerZone es una tienda de videojuegos desarrollada con React y Vite. La aplicación muestra un catálogo, permite buscar y filtrar productos, y administra un carrito de compras mediante estados de React.
 
 ## Funcionalidades
 
-- Carga de productos desde `assets/data/productos.json`.
-- Visualizacion de videojuegos en tarjetas responsivas.
-- Busqueda de productos por nombre.
-- Filtro por categorias:
-  - Aventura
-  - RPG
-  - Carreras
-- Carrito de compras dinamico.
-- Contador de productos en el carrito.
-- Calculo automatico del total.
-- Manejo de estados de carga, exito y error.
-- Diseno adaptable para escritorio, tablet y celular.
+- Catálogo cargado desde un archivo JSON mediante Fetch API.
+- Nombre, descripción, imagen, categoría, precio normal y precio de oferta.
+- Búsqueda de productos por nombre.
+- Filtro por categoría.
+- Carrito administrado con `useState`.
+- Botones para agregar, disminuir o eliminar productos.
+- Contador de unidades y cálculo automático del total.
+- Estados de carga, error, carrito vacío y búsqueda sin resultados.
+- Diseño responsivo para escritorio, tablet y móvil.
+- Configuración para desplegar en la rama `gh-pages`.
 
-## Estructura del proyecto
+## Tecnologías
+
+- React
+- Vite
+- JavaScript y JSX
+- Bootstrap 5
+- CSS3
+- Fetch API y JSON
+
+## Estructura principal
 
 ```text
 Frontendl/
-+-- assets/
-|   +-- css/
-|   |   +-- estilos.css
-|   |   +-- estilos-tablet.css
-|   |   +-- estilos-movil.css
-|   +-- data/
-|   |   +-- productos.json
-|   +-- img/
-|   |   +-- minecraft.jpg
-|   |   +-- World_of_Warcraft.png
-|   |   +-- mariokart.webp
-|   +-- js/
-|       +-- app.js
-|       +-- script.js
-+-- capturas/
-+-- capturas_evidencias/
-+-- index.html
-+-- README.md
+├── assets/
+│   ├── data/productos.json
+│   └── img/
+├── src/
+│   ├── components/
+│   │   ├── Cart.jsx
+│   │   ├── CartItem.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── ProductCard.jsx
+│   │   └── ProductList.jsx
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── styles.css
+├── index.html
+├── package.json
+└── vite.config.js
 ```
 
-## Como ejecutar el proyecto
+## Ejecución local
 
-Como el proyecto usa Fetch API para cargar un archivo JSON local, se recomienda abrirlo mediante un servidor local.
-
-### Opcion 1: Live Server
-
-1. Abrir la carpeta del proyecto en Visual Studio Code.
-2. Instalar la extension **Live Server**.
-3. Hacer clic derecho sobre `index.html`.
-4. Seleccionar **Open with Live Server**.
-
-### Opcion 2: Servidor local con Python
-
-Desde la raiz del proyecto, ejecutar:
+Se necesita una versión de Node.js compatible con Vite.
 
 ```bash
-python -m http.server 8000
+npm install
+npm run dev
 ```
 
-Luego abrir en el navegador:
+Vite mostrará en la terminal la dirección local de la aplicación, normalmente `http://localhost:5173`.
 
-```text
-http://localhost:8000
+## Compilación de producción
+
+```bash
+npm run build
+npm run preview
 ```
 
-## Archivos principales
+La compilación queda en la carpeta `dist`.
 
-- `index.html`: estructura principal de la pagina.
-- `assets/css/estilos.css`: estilos generales del sitio.
-- `assets/css/estilos-tablet.css`: ajustes responsivos para tablet.
-- `assets/css/estilos-movil.css`: ajustes responsivos para celular.
-- `assets/js/app.js`: logica principal del catalogo, filtros, busqueda y carrito.
-- `assets/data/productos.json`: informacion de los videojuegos.
-- `capturas/` y `capturas_evidencias/`: imagenes de respaldo del funcionamiento del proyecto.
+## Despliegue en GitHub Pages
 
-## Productos incluidos
+El archivo `vite.config.js` usa la ruta base `/Frontendl/`, correspondiente al nombre de este repositorio.
 
-El catalogo inicial contiene:
+```bash
+npm run deploy
+```
 
-- Minecraft
-- World of Warcraft
-- Mario Kart
-
-Cada producto incluye nombre, precio, categoria, imagen y descripcion.
+Este comando compila la aplicación y publica `dist` en la rama `gh-pages`. En la configuración del repositorio se debe seleccionar **Deploy from a branch**, rama **gh-pages** y carpeta **/(root)**.
 
 ## Autor
 
-Proyecto desarrollado por **Valeria Acevedo** para la asignatura de frontend.
+Proyecto desarrollado por **Valeria Acevedo** para la asignatura Desarrollo Frontend I (PFY2201).
