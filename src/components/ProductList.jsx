@@ -2,8 +2,10 @@ import ProductCard from "./ProductCard.jsx";
 
 function ProductList({
   productos,
+  carrito,
   cargando,
   error,
+  alReintentar,
   busqueda,
   categoria,
   alAgregar,
@@ -11,6 +13,7 @@ function ProductList({
 }) {
   let contenido;
 
+  // Muestra el contenido adecuado según la carga, el error o los resultados.
   if (cargando) {
     contenido = (
       <div className="text-center py-5" role="status">
@@ -21,7 +24,14 @@ function ProductList({
   } else if (error) {
     contenido = (
       <div className="alert alert-danger text-center" role="alert">
-        {error}
+        <p className="mb-3">{error}</p>
+        <button
+          type="button"
+          className="btn btn-outline-danger"
+          onClick={alReintentar}
+        >
+          Reintentar
+        </button>
       </div>
     );
   } else if (productos.length === 0) {
@@ -37,6 +47,9 @@ function ProductList({
           <ProductCard
             key={producto.id}
             producto={producto}
+            cantidadEnCarrito={
+              carrito.find((item) => item.id === producto.id)?.cantidad ?? 0
+            }
             alAgregar={alAgregar}
             formatearPrecio={formatearPrecio}
           />

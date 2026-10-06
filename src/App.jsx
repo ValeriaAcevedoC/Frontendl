@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import Navbar from "./components/Navbar.jsx";
 import ProductList from "./components/ProductList.jsx";
 import Cart from "./components/Cart.jsx";
+import { validarProductos } from "./utils/productos.js";
 
 const formatearPrecio = (precio) =>
   precio.toLocaleString("es-CL", {
@@ -16,7 +17,9 @@ function App() {
   const [categoria, setCategoria] = useState("Todos");
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
+  const [intentoCarga, setIntentoCarga] = useState(0);
 
+  // Carga el JSON al iniciar y repite la petición cuando se solicita un reintento.
   useEffect(() => {
     const controlador = new AbortController();
 
@@ -34,9 +37,12 @@ function App() {
           throw new Error(`Error HTTP: ${respuesta.status}`);
         }
 
-        setProductos(await respuesta.json());
+        const datos = validarProductos(await respuesta.json());
+        if (!controlador.signal.aborted) {
+          setProductos(datos);
+        }
       } catch (errorCarga) {
-        if (errorCarga.name !== "AbortError") {
+        if (!controlador.signal.aborted) {
           console.error("Error al cargar productos:", errorCarga);
           setError("No fue posible cargar los productos. Intenta nuevamente.");
         }
@@ -48,14 +54,23 @@ function App() {
     }
 
     cargarProductos();
+    // Cancela la petición anterior al desmontar o iniciar una nueva carga.
     return () => controlador.abort();
-  }, []);
+  }, [intentoCarga]);
 
+  function reintentarCarga() {
+    setCargando(true);
+    setError("");
+    setIntentoCarga((intentoActual) => intentoActual + 1);
+  }
+
+  // Obtiene las categorías del catálogo sin duplicarlas.
   const categorias = useMemo(
     () => [...new Set(productos.map((producto) => producto.categoria))],
     [productos],
   );
 
+  // Combina la búsqueda por nombre y la categoría seleccionada.
   const productosFiltrados = useMemo(() => {
     const texto = busqueda.toLocaleLowerCase("es").trim();
 
@@ -70,6 +85,7 @@ function App() {
     });
   }, [busqueda, categoria, productos]);
 
+  // El contador y el total se calculan desde el carrito para mantenerlos sincronizados.
   const cantidadTotal = carrito.reduce(
     (total, producto) => total + producto.cantidad,
     0,
@@ -81,6 +97,7 @@ function App() {
     0,
   );
 
+  // Actualiza el estado anterior sin modificarlo: aumenta unidades o agrega un producto.
   function agregarAlCarrito(producto) {
     setCarrito((carritoActual) => {
       const productoExistente = carritoActual.find(
@@ -99,6 +116,7 @@ function App() {
     });
   }
 
+  // Al quitar la última unidad, el producto también desaparece del carrito.
   function disminuirCantidad(idProducto) {
     setCarrito((carritoActual) =>
       carritoActual
@@ -111,6 +129,7 @@ function App() {
     );
   }
 
+  // Elimina todas las unidades del producto seleccionado.
   function eliminarDelCarrito(idProducto) {
     setCarrito((carritoActual) =>
       carritoActual.filter((item) => item.id !== idProducto),
@@ -164,8 +183,10 @@ function App() {
 
         <ProductList
           productos={productosFiltrados}
+          carrito={carrito}
           cargando={cargando}
           error={error}
+          alReintentar={reintentarCarga}
           busqueda={busqueda}
           categoria={categoria}
           alAgregar={agregarAlCarrito}

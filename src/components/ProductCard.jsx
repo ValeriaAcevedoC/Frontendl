@@ -1,4 +1,7 @@
-function ProductCard({ producto, alAgregar, formatearPrecio }) {
+function ProductCard({ producto, cantidadEnCarrito, alAgregar, formatearPrecio }) {
+  // Usa la cantidad del carrito para reflejar también las disminuciones y eliminaciones.
+  const enCarrito = cantidadEnCarrito > 0;
+
   return (
     <article className="col-12 col-md-6 col-lg-4">
       <div className="card h-100 shadow-sm tarjeta-producto">
@@ -21,13 +24,22 @@ function ProductCard({ producto, alAgregar, formatearPrecio }) {
             Oferta: {formatearPrecio(producto.precioOferta)}
           </p>
 
-          <button
-            className="btn btn-primary mt-auto"
-            type="button"
-            onClick={() => alAgregar(producto)}
-          >
-            Agregar al carrito
-          </button>
+          <div className="mt-auto">
+            {enCarrito && (
+              <p className="mb-2" role="status">
+                <span className="badge bg-success">
+                  En el carrito: {cantidadEnCarrito}
+                </span>
+              </p>
+            )}
+            <button
+              className={`btn w-100 ${enCarrito ? "btn-success" : "btn-primary"}`}
+              type="button"
+              onClick={() => alAgregar(producto)}
+            >
+              {enCarrito ? "Agregar otra unidad" : "Agregar al carrito"}
+            </button>
+          </div>
         </div>
       </div>
     </article>
