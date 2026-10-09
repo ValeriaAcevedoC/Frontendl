@@ -36,14 +36,11 @@ body {
   border-radius: 5px;
 }
 
-.boton-enlace {
-  border: 0;
-  background: transparent;
-}
-
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
   outline: 3px solid var(--color-acento);
   outline-offset: 3px;
 }
@@ -118,13 +115,41 @@ input:focus-visible {
   font-weight: 700;
 }
 
-#contacto {
+.pie-pagina {
   color: white;
   background-color: var(--color-principal);
 }
 
-#contacto a {
+.pie-pagina a {
   color: white;
+}
+
+section,
+header {
+  scroll-margin-top: 1rem;
+}
+
+.card-body,
+.carrito-item > div,
+.gestion-item > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.gestion-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.imagen-no-disponible {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  background: #f4f4f4;
 }
 
 img {
@@ -149,10 +174,6 @@ img {
 }
 
 @media (max-width: 767.98px) {
-  body {
-    overflow-x: hidden;
-  }
-
   #inicio {
     padding-right: 15px;
     padding-left: 15px;
@@ -163,6 +184,7 @@ img {
   }
 
   #productos {
+    width: calc(100% - 20px);
     margin: 10px;
     padding: 15px;
   }
@@ -193,7 +215,7 @@ img {
     justify-self: start;
   }
 
-  #contacto {
+  .pie-pagina {
     padding: 20px 15px;
   }
 }

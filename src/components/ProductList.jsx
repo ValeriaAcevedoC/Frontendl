@@ -8,6 +8,7 @@ function ProductList({
   alReintentar,
   busqueda,
   categoria,
+  catalogoVacio,
   alAgregar,
   formatearPrecio,
 }) {
@@ -37,7 +38,9 @@ function ProductList({
   } else if (productos.length === 0) {
     contenido = (
       <div className="alert alert-info text-center" role="status">
-        No se encontraron videojuegos con esos criterios.
+        {catalogoVacio
+          ? "No hay videojuegos disponibles. Puedes agregar uno en Gestionar catálogo."
+          : "No se encontraron videojuegos con esos criterios."}
       </div>
     );
   } else {
@@ -58,10 +61,10 @@ function ProductList({
     );
   }
 
-  const filtroActivo = busqueda.trim() || categoria !== "Todos";
+  const filtroActivo = busqueda.trim() || categoria !== "";
 
   return (
-    <section id="productos" className="container my-5" aria-live="polite">
+    <section id="productos" className="container my-5" aria-labelledby="titulo-productos" aria-live="polite">
       <h2 id="titulo-productos" className="text-center mb-3">
         Nuestros videojuegos
       </h2>

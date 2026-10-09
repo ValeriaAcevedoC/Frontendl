@@ -1,15 +1,32 @@
+import { useState } from "react";
+
 function ProductCard({ producto, cantidadEnCarrito, alAgregar, formatearPrecio }) {
+  const [imagenFallida, setImagenFallida] = useState(false);
+  const imagen = /^https?:\/\//i.test(producto.imagen)
+    ? producto.imagen
+    : `${import.meta.env.BASE_URL}${producto.imagen}`;
   // Usa la cantidad del carrito para reflejar también las disminuciones y eliminaciones.
   const enCarrito = cantidadEnCarrito > 0;
 
   return (
     <article className="col-12 col-md-6 col-lg-4">
       <div className="card h-100 shadow-sm tarjeta-producto">
-        <img
-          src={producto.imagen}
-          className="card-img-top"
-          alt={`Portada de ${producto.nombre}`}
-        />
+        {imagenFallida ? (
+          <div
+            className="card-img-top imagen-no-disponible"
+            role="img"
+            aria-label={`Portada no disponible de ${producto.nombre}`}
+          >
+            Imagen no disponible
+          </div>
+        ) : (
+          <img
+            src={imagen}
+            className="card-img-top"
+            alt={`Portada de ${producto.nombre}`}
+            onError={() => setImagenFallida(true)}
+          />
+        )}
 
         <div className="card-body d-flex flex-column">
           <h3 className="card-title h5">{producto.nombre}</h3>

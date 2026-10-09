@@ -1,7 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Navbar from "./components/Navbar.jsx";
 import ProductList from "./components/ProductList.jsx";
 import Cart from "./components/Cart.jsx";
+import ContactForm from "./components/ContactForm.jsx";
+import ProductManager from "./components/ProductManager.jsx";
 import { validarProductos } from "./utils/productos.js";
 
 const formatearPrecio = (precio) =>
@@ -14,10 +16,11 @@ function App() {
   const [productos, setProductos] = useState([]);
   const [carrito, setCarrito] = useState([]);
   const [busqueda, setBusqueda] = useState("");
-  const [categoria, setCategoria] = useState("Todos");
+  const [categoria, setCategoria] = useState("");
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
   const [intentoCarga, setIntentoCarga] = useState(0);
+  const siguienteId = useRef(1);
 
   // Carga el JSON al iniciar y repite la petición cuando se solicita un reintento.
   useEffect(() => {
@@ -39,6 +42,10 @@ function App() {
 
         const datos = validarProductos(await respuesta.json());
         if (!controlador.signal.aborted) {
+          siguienteId.current = datos.reduce(
+            (maximo, producto) => Math.max(maximo, producto.id),
+            0,
+          ) + 1;
           setProductos(datos);
         }
       } catch (errorCarga) {
@@ -76,7 +83,7 @@ function App() {
 
     return productos.filter((producto) => {
       const coincideCategoria =
-        categoria === "Todos" || producto.categoria === categoria;
+        categoria === "" || producto.categoria === categoria;
       const coincideBusqueda = producto.nombre
         .toLocaleLowerCase("es")
         .includes(texto);
@@ -137,17 +144,34 @@ function App() {
   }
 
   function mostrarTodos() {
-    setCategoria("Todos");
+    setCategoria("");
     setBusqueda("");
+  }
+
+  function agregarVideojuego(datos) {
+    const producto = { ...datos, id: siguienteId.current++ };
+    setProductos((catalogoActual) => [...catalogoActual, producto]);
+    mostrarTodos();
+  }
+
+  function eliminarVideojuego(idProducto) {
+    setProductos((catalogoActual) =>
+      catalogoActual.filter((producto) => producto.id !== idProducto),
+    );
+    eliminarDelCarrito(idProducto);
+    // Restablece la categoría si ya no tiene videojuegos disponibles.
+    const categoriaDisponible = productos.some(
+      (producto) => producto.id !== idProducto && producto.categoria === categoria,
+    );
+    if (!categoriaDisponible) {
+      setCategoria("");
+    }
   }
 
   return (
     <>
       <Navbar
         cantidadCarrito={cantidadTotal}
-        categorias={categorias}
-        categoriaActiva={categoria}
-        alSeleccionarCategoria={setCategoria}
         alMostrarTodos={mostrarTodos}
       />
 
@@ -165,8 +189,8 @@ function App() {
             role="search"
             onSubmit={(evento) => evento.preventDefault()}
           >
-            <div className="col-12 col-md-7">
-              <label htmlFor="busqueda" className="visually-hidden">
+            <div className="col-12 col-md-6">
+              <label htmlFor="busqueda" className="form-label">
                 Buscar videojuego
               </label>
               <input
@@ -177,6 +201,32 @@ function App() {
                 value={busqueda}
                 onChange={(evento) => setBusqueda(evento.target.value)}
               />
+            </div>
+            <div className="col-12 col-md-4">
+              <label htmlFor="categoria" className="form-label">
+                Categoría
+              </label>
+              <select
+                id="categoria"
+                className="form-select"
+                value={categoria}
+                onChange={(evento) => setCategoria(evento.target.value)}
+                disabled={cargando || Boolean(error)}
+              >
+                <option value="">Todas las categorías</option>
+                {categorias.map((opcion) => (
+                  <option key={opcion} value={opcion}>{opcion}</option>
+                ))}
+              </select>
+            </div>
+            <div className="col-12 col-md-2 d-flex align-items-end">
+              <button
+                type="button"
+                className="btn btn-outline-secondary w-100"
+                onClick={mostrarTodos}
+              >
+                Limpiar filtros
+              </button>
             </div>
           </form>
         </section>
@@ -189,6 +239,7 @@ function App() {
           alReintentar={reintentarCarga}
           busqueda={busqueda}
           categoria={categoria}
+          catalogoVacio={productos.length === 0}
           alAgregar={agregarAlCarrito}
           formatearPrecio={formatearPrecio}
         />
@@ -201,9 +252,19 @@ function App() {
           alEliminar={eliminarDelCarrito}
           formatearPrecio={formatearPrecio}
         />
+
+        <ProductManager
+          productos={productos}
+          categorias={categorias}
+          cargando={cargando}
+          error={error}
+          alAgregar={agregarVideojuego}
+          alEliminar={eliminarVideojuego}
+        />
+        <ContactForm />
       </main>
 
-      <footer id="contacto" className="text-white text-center py-4 mt-5">
+      <footer className="pie-pagina text-white text-center py-4 mt-5">
         <div className="container">
           <p className="mb-1">GamerZone - Tienda de Videojuegos</p>
           <p className="mb-1">
