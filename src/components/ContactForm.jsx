@@ -78,8 +78,7 @@ function ContactForm() {
               error={errores.mensaje}
             />
             <div className="col-12">
-              <button type="submit" className="btn btn-primary" aria-describedby="aviso-contacto">Enviar mensaje</button>
-              <p id="aviso-contacto" className="form-text mb-0">Formulario de demostración: no se envían mensajes reales.</p>
+              <button type="submit" className="btn btn-primary">Enviar mensaje</button>
             </div>
           </form>
           {enviado && <p className="alert alert-success mt-3 mb-0" role="status">Los datos son válidos. Envío simulado completado; no se ha enviado ningún correo.</p>}
